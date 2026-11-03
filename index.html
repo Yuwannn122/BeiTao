@@ -427,8 +427,8 @@ table.jn-tbl { min-width: 0; }
 .coin .face span { font-family: var(--font-display); font-size: calc(var(--cs) * .3); font-weight: 700; line-height: 1; color: #C8871C;
   text-shadow: -1px -1px 0 #FFF6D0, -2px -2px 2px rgba(255, 248, 215, .75), 1px 1px 0 #6E450A, 2px 2px 0 #8A5A10, 3px 4px 5px rgba(70, 40, 0, .6); }
 .coin-shadow { position: absolute; left: 15%; right: 15%; bottom: -14%; height: 8%; border-radius: 50%; background: rgba(0, 0, 0, .45); filter: blur(5px); }
-.coin-layer.go .coin { animation: coin-toss 1.9s cubic-bezier(.3, .1, .3, 1) forwards; }
-.coin-layer.go .coin-shadow { animation: coin-shadow 1.9s cubic-bezier(.3, .1, .3, 1) forwards; }
+.coin-layer.go .coin { animation: coin-toss 3.2s cubic-bezier(.3, .1, .3, 1) forwards; }
+.coin-layer.go .coin-shadow { animation: coin-shadow 3.2s cubic-bezier(.3, .1, .3, 1) forwards; }
 @keyframes coin-toss {
   0% { transform: translateY(0) rotateX(0deg); }
   45% { transform: translateY(calc(var(--cs) * -1.3)) rotateX(calc(var(--spin) * .55)); }
@@ -2647,8 +2647,8 @@ window.BEITAO_SB = {
   }
 
   // ---------- v8：开场幸运硬币 ----------
-  // 总翻转角度永远是 360° 的整数倍（4～6 圈），落下时正面“涨停”朝上
-  const coinSpin = r => 360 * (4 + Math.floor(r * 3));
+  // 总翻转角度永远是 360° 的整数倍（3～4 圈，转太多看不清），落下时正面“涨停”朝上
+  const coinSpin = r => 360 * (3 + Math.floor(r * 2));
   // 每天一次：记下的日期不是今天才抛
   const coinDue = (last, today) => last !== today;
 
@@ -5089,8 +5089,8 @@ function reliefCoin(cv, text, S) {
   const start = () => {
     if (started) return; started = true; paint();
     requestAnimationFrame(() => requestAnimationFrame(() => L.classList.add('go')));
-    setTimeout(() => L.classList.add('landed'), reduce ? 0 : 1600);
-    setTimeout(close, reduce ? 1000 : 1900 + 900);
+    setTimeout(() => L.classList.add('landed'), reduce ? 0 : 2700);
+    setTimeout(close, reduce ? 1000 : 3200 + 1500); // 3.2 秒抛完，落地后停 1.5 秒再收起
   };
   (document.fonts ? Promise.race([document.fonts.load('900 40px "Noto Serif SC"', '涨停被套'), new Promise(r => setTimeout(r, 600))]) : Promise.resolve()).then(start, start);
 })();
